@@ -1,0 +1,16 @@
+# 开发环境
+
+text: 这里是开发环境
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: chenjie+00
+    url: jdbc:mysql://localhost:3306/school?useUnicode=true&characterEncoding=utf8&zeroDateTime
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  # mybatis-pluse本身日志打印
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -1,0 +1,10 @@
+# 生产环境
+
+text: 这里是生产环境
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: xxx
+    password: xxx
+    url: jdbc:mysql://xxx:3306/school?useUnicode=true&characterEncoding=utf8&zeroDateTime
