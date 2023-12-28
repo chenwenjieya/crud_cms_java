@@ -49,6 +49,9 @@ public class RoleController {
     @PostMapping("/save")
     @ApiOperation(value = "编辑或者新增", notes = "编辑或者新增")
     public Result<String> editOrAdd(@RequestBody Role role) {
+
+//        throw new CustomException(502,"自定义异常");
+
         roleService.saveOrUpdate(role);
         return Result.success("新增/编辑成功");
     }
