@@ -14,3 +14,4 @@ mybatis-plus:
   # mybatis-pluse本身日志打印
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  typeEnumsPackage: com.baomidou.springboot.entity.enums

@@ -7,7 +7,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,10 +19,13 @@ public class Role {
     @ApiModelProperty("主键")
     private Long id;
 
+    @NotBlank(message = "角色名不能为空")
+    @Length(min = 2, max = 255, message = "角色名长度必须在2-255之间")
     @ApiModelProperty("角色名")
     @TableField("role_name")
     private String rolename;
 
+    @Length(min = 2, max = 255, message = "备注长度必须在2-255之间")
     @ApiModelProperty("备注")
     private String remark;
 

@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 @Api(value = "角色管理", tags = "角色管理")
 @RestController
@@ -48,7 +49,7 @@ public class RoleController {
     // 编辑或者新增  id
     @PostMapping("/save")
     @ApiOperation(value = "编辑或者新增", notes = "编辑或者新增")
-    public Result<String> editOrAdd(@RequestBody Role role) {
+    public Result<String> editOrAdd(@Valid @RequestBody Role role) {
 
 //        throw new CustomException(502,"自定义异常");
 

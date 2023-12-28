@@ -2,6 +2,7 @@ package com.cj.exception;
 
 import com.cj.common.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,7 +17,10 @@ public class GlobalException {
      */
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
-    public Result<String> handleException(){
+    public Result<String> handleException(Exception e){
+
+        log.error("运行时异常: ",e);
+
         return Result.error();
     }
 
@@ -31,4 +35,14 @@ public class GlobalException {
         return Result.error(e.getCode(), e.getMessage());
     }
 
+
+    /**
+     *  处理校验异常
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    public Result<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+        log.error("校验异常: ",e);
+        return Result.error(e.getBindingResult().getFieldError().getDefaultMessage());
+    }
 }
