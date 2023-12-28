@@ -3,6 +3,7 @@ package com.cj.controller;
 import com.cj.common.Result;
 import com.cj.entity.Role;
 import com.cj.service.RoleService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/test")
+@Api(value = "测试接口", tags = "测试接口")
 public class TestController {
 
     @Value("${text}")

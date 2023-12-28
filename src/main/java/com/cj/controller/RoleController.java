@@ -6,12 +6,13 @@ import com.cj.common.Result;
 import com.cj.dto.RoleQuery;
 import com.cj.entity.Role;
 import com.cj.service.RoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+@Api(value = "角色管理", tags = "角色管理")
 @RestController
 @RequestMapping("/role")
 public class RoleController {
@@ -22,6 +23,7 @@ public class RoleController {
 
     // 分页查询
     @PostMapping("/page")
+    @ApiOperation(value = "分页查询", notes = "分页查询")
     public Result<?> finPage(@RequestBody RoleQuery roleQuery) {
 
         LambdaQueryWrapper<Role> wrapper = new LambdaQueryWrapper<>();
@@ -40,6 +42,24 @@ public class RoleController {
                 wrapper
         );
         return Result.success(page.getRecords());
+    }
+
+
+    // 编辑或者新增  id
+    @PostMapping("/save")
+    @ApiOperation(value = "编辑或者新增", notes = "编辑或者新增")
+    public Result<String> editOrAdd(@RequestBody Role role) {
+        roleService.saveOrUpdate(role);
+        return Result.success("新增/编辑成功");
+    }
+
+
+    // 批量删除
+    @DeleteMapping("/deleteBatch")
+    @ApiOperation(value = "批量删除", notes = "批量删除")
+    public Result<String> delete(@RequestBody List<Long> ids) {
+        roleService.removeByIds(ids);
+        return Result.success("删除成功");
     }
 
 }

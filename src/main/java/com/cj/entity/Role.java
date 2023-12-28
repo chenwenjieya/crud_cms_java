@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Data
 @TableName("role")
-@ApiModel(value = "用户实体类", description = "这是用户实体类")
+@ApiModel(value = "角色实体类", description = "这是角色实体类")
 public class Role {
     @ApiModelProperty("主键")
     private Long id;
@@ -25,11 +25,11 @@ public class Role {
     private String remark;
 
     @ApiModelProperty("创建时间")
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     @ApiModelProperty("更新时间")
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
     @ApiModelProperty("是否删除")
