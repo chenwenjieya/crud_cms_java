@@ -1,7 +1,7 @@
 package com.cj.controller;
 
+import com.cj.common.Result;
 import com.cj.entity.Role;
-import com.cj.entity.User;
 import com.cj.service.RoleService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -39,8 +39,8 @@ public class TestController {
 
     @GetMapping("/role")
     @ApiOperation(value = "用户", notes = "获取所有的用户信息")
-    public List<Role> getRole() {
-        return roleService.getRole();
+    public Result<List<Role>> getRole() {
+        return Result.success(roleService.getRole());
     }
 
     // 根据角色id返回角色信息
@@ -53,6 +53,13 @@ public class TestController {
     )
     public Role getRoleById(@RequestParam("id") Long id) {
         return roleService.getRoleById(id);
+    }
+
+
+    @GetMapping("/error")
+    @ApiOperation(value = "失败", notes = "失败的测试接口")
+    public Result error() {
+        return Result.error("测试统一返回失败的结果");
     }
 
 }
