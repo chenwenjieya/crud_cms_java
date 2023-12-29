@@ -25,7 +25,7 @@ public class RoleController {
     // 分页查询
     @PostMapping("/page")
     @ApiOperation(value = "分页查询", notes = "分页查询")
-    public Result<?> finPage(@RequestBody RoleQuery roleQuery) {
+    public Result<List<Role>> finPage(@RequestBody RoleQuery roleQuery) {
 
         LambdaQueryWrapper<Role> wrapper = new LambdaQueryWrapper<>();
         wrapper.orderByDesc(Role::getCreateTime);
@@ -42,7 +42,7 @@ public class RoleController {
                 ),
                 wrapper
         );
-        return Result.success(page.getRecords());
+        return new Result<>().success(page.getRecords());
     }
 
 
@@ -54,7 +54,7 @@ public class RoleController {
 //        throw new CustomException(502,"自定义异常");
 
         roleService.saveOrUpdate(role);
-        return Result.success("新增/编辑成功");
+        return new Result<>().success("新增/编辑成功");
     }
 
 
@@ -63,7 +63,7 @@ public class RoleController {
     @ApiOperation(value = "批量删除", notes = "批量删除")
     public Result<String> delete(@RequestBody List<Long> ids) {
         roleService.removeByIds(ids);
-        return Result.success("删除成功");
+        return new Result<>().success("删除成功");
     }
 
 }

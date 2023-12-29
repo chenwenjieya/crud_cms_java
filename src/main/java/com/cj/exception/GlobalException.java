@@ -17,11 +17,11 @@ public class GlobalException {
      */
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
-    public Result<String> handleException(Exception e){
+    public Result handleException(Exception e){
 
         log.error("运行时异常: ",e);
 
-        return Result.error();
+        return new Result().error();
     }
 
 
@@ -30,9 +30,9 @@ public class GlobalException {
      */
     @ExceptionHandler(CustomException.class)
     @ResponseBody
-    public Result<String> handleCustomException(CustomException e){
+    public Result handleCustomException(CustomException e){
         log.error("自定义异常: ",e.getMessage());
-        return Result.error(e.getCode(), e.getMessage());
+        return new Result().error(e.getCode(), e.getMessage());
     }
 
 
@@ -41,8 +41,8 @@ public class GlobalException {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
-    public Result<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+    public Result handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
         log.error("校验异常: ",e);
-        return Result.error(e.getBindingResult().getFieldError().getDefaultMessage());
+        return new Result().error(e.getBindingResult().getFieldError().getDefaultMessage());
     }
 }

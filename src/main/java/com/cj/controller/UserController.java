@@ -27,7 +27,7 @@ public class UserController {
     @PostMapping("/addUser")
     public Result<String> addUser(@Valid @RequestBody User user) {
         userService.save(user);
-        return Result.success("新增用户成功");
+        return new Result<>().success("新增用户成功");
     }
 
     // 删除
@@ -35,7 +35,7 @@ public class UserController {
     @DeleteMapping("/deleteBatch")
     public Result<String> deleteBatch(@RequestBody List<Long> ids) {
         userService.removeByIds(ids);
-        return Result.success("删除用户成功");
+        return new Result<>().success("删除用户成功");
     }
 
     // 修改
@@ -43,7 +43,7 @@ public class UserController {
     @PutMapping("/update")
     public Result<String> updateuser(@Valid @RequestBody User user) {
         userService.saveOrUpdate(user);
-        return Result.success("新增用户成功");
+        return new Result<>().success("新增用户成功");
     }
 
     // 查询
@@ -73,7 +73,7 @@ public class UserController {
                 wrapper
         );
 
-        return Result.success(page.getRecords());
+        return new Result<>().success(page.getRecords());
     }
 
 }

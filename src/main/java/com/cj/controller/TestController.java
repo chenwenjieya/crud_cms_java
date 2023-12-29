@@ -42,7 +42,7 @@ public class TestController {
     @GetMapping("/role")
     @ApiOperation(value = "用户", notes = "获取所有的用户信息")
     public Result<List<Role>> getRole() {
-        return Result.success(roleService.getRole());
+        return new Result<>().success(roleService.getRole());
     }
 
     // 根据角色id返回角色信息
@@ -60,8 +60,8 @@ public class TestController {
 
     @GetMapping("/error")
     @ApiOperation(value = "失败", notes = "失败的测试接口")
-    public Result error() {
-        return Result.error("测试统一返回失败的结果");
+    public Result<String> error() {
+        return new Result<>().error("测试统一返回失败的结果");
     }
 
 }
