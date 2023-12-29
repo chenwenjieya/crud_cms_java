@@ -27,7 +27,7 @@ public class JwtUtil {
     private static UserService userService;
 
 
-    private  static final Long TOKEN_EXPIRED_TIME = 30*24*60*60L;
+    private  static final Long TOKEN_EXPIRED_TIME = 60*60L;  // 一小时过期
 
     private static final String jwtId = "tokenId";
 
@@ -139,7 +139,7 @@ public class JwtUtil {
         String token = request.getHeader("token");
         Claims claims = verifyJwt(token);
         if (claims != null){
-            return (Long) claims.get("id");
+            return (Long) claims.get("userId");
         } else{
             return 0L;
         }
