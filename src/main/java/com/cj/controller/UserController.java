@@ -13,10 +13,12 @@ import com.cj.vo.UserLoginVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Api(value = "用户管理", tags= "用户管理")
 @RestController
@@ -25,6 +27,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     // 新增
     @ApiOperation(value = "新增用户", notes = "增加单个用户")
@@ -87,27 +91,30 @@ public class UserController {
     @PostMapping("/login")
     @ResponseBody
     public Result<UserLoginVo> login(@RequestBody @Valid UserLogin userLogin) {
-
+        // lambda 查询
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
 
+        // 查询出账号密码都匹配的信息
         wrapper.eq(User::getUsername, userLogin.getUsername())
                 .eq(User::getPassword, userLogin.getPassword())
                 .last("limit 1");  // 防止查出来多条报错
 
         User user = userService.getOne(wrapper);
 
+        // 返回给用户的数据格式
         UserLoginVo userLoginVo = new UserLoginVo();
 
         if (user != null) {
             // 生成token 存储到redis中
-            System.out.println("User="+user);
             String token = JwtUtil.generateToken(user);
-            System.out.println( "token"+token);
 
             userLoginVo.setToken(token);
             userLoginVo.setUsername(user.getUsername());
             userLoginVo.setUserId(user.getId());
             userLoginVo.setRoleId(user.getRoleId());
+
+            // 存储到redis中，缓存时间一个小时
+            stringRedisTemplate.opsForValue().set("token:" + user.getId(), token, 1, TimeUnit.HOURS);
         } else{
             throw new CustomException("用户名或密码错误");
         }
