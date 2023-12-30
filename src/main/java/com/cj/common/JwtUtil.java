@@ -27,7 +27,7 @@ public class JwtUtil {
     private static UserService userService;
 
 
-    private  static final Long TOKEN_EXPIRED_TIME = 60*60L;  // 一小时过期
+    private  static final Long TOKEN_EXPIRED_TIME = 600000L;  // 一小时过期
 
     private static final String jwtId = "tokenId";
 
@@ -45,7 +45,7 @@ public class JwtUtil {
         Date now = new Date(System.currentTimeMillis());
 
 
-        SecretKey secretKey = generalKey();
+        SecretKey secretKey = generalKey(); // key
 
         long nowMillis = System.currentTimeMillis();  // 生成jwt时间
 
@@ -59,6 +59,7 @@ public class JwtUtil {
         if (time >= 0) {
             long expMillis = nowMillis + time;
             Date exp = new Date((expMillis));
+            System.out.println("过期时间："+ exp);
             builder.setExpiration(exp);     // 设置过期时间
         }
 
