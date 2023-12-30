@@ -8,6 +8,12 @@ spring:
     username: root
     password: chenjie+00
     url: jdbc:mysql://localhost:3306/school?useUnicode=true&characterEncoding=utf8&zeroDateTime
+  # redis配置信息
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    timeout: 5000
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
@@ -15,3 +21,5 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   typeEnumsPackage: com.baomidou.springboot.entity.enums
+
+
