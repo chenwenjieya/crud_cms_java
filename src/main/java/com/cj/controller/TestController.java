@@ -2,7 +2,7 @@ package com.cj.controller;
 
 import com.cj.common.Result;
 import com.cj.entity.Role;
-import com.cj.service.RoleService;
+import com.cj.service.impl.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

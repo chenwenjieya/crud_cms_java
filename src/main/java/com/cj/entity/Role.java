@@ -10,12 +10,16 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @TableName("role")
 @ApiModel(value = "角色实体类", description = "这是角色实体类")
-public class Role {
+public class Role implements Serializable {
+
+    private  static final long serialVersionUID = 1L;
+
     @ApiModelProperty("主键")
     private Long id;
 

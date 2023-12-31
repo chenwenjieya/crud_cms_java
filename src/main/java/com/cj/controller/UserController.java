@@ -4,18 +4,22 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cj.common.JwtUtil;
 import com.cj.common.Result;
-import com.cj.dto.UserLogin;
-import com.cj.dto.UserQuery;
+import com.cj.dto.user.UserDto;
+import com.cj.dto.user.UserLogin;
+import com.cj.dto.user.UserQuery;
 import com.cj.entity.User;
 import com.cj.exception.CustomException;
-import com.cj.service.UserService;
+import com.cj.mapper.UserMapper;
+import com.cj.service.impl.UserService;
 import com.cj.vo.UserLoginVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +37,9 @@ public class UserController {
     // 新增
     @ApiOperation(value = "新增用户", notes = "增加单个用户")
     @PostMapping("/addUser")
-    public Result<String> addUser(@Valid @RequestBody User user) {
+    public Result<String> addUser(@Valid @RequestBody UserDto userDto) {
+        User user = new User();
+        BeanUtils.copyProperties(userDto, user);
         userService.save(user);
         return new Result<>().success("新增用户成功");
     }
@@ -49,9 +55,13 @@ public class UserController {
     // 修改
     @ApiOperation(value = "更新用户", notes = "更新用户")
     @PutMapping("/update")
-    public Result<String> updateuser(@Valid @RequestBody User user) {
+    public Result<String> updateuser(@Valid @RequestBody UserDto userDto) {
+
+        User user = new User();
+        BeanUtils.copyProperties(userDto, user);
+
         userService.saveOrUpdate(user);
-        return new Result<>().success("新增用户成功");
+        return new Result<>().success("更新用户成功");
     }
 
     // 查询
@@ -88,8 +98,8 @@ public class UserController {
     /**
      * 登陆接口
      */
+    @ApiOperation(value = "登陆接口", notes = "登陆")
     @PostMapping("/login")
-    @ResponseBody
     public Result<UserLoginVo> login(@RequestBody @Valid UserLogin userLogin) {
         // lambda 查询
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
@@ -120,6 +130,25 @@ public class UserController {
         }
 
         return new Result<>().success(userLoginVo);
+    }
+
+
+    @Autowired
+    private UserMapper userMapper;
+
+    /**
+     * 根据用户的id获取用户的信息(包括角色信息)
+     */
+    @ApiOperation(value = "用户信息", notes = "用户信息")
+    @PostMapping("/userInfo")
+    public Result<User> getUserInfo(HttpServletRequest request) {
+        // 获取用户id
+        Long userId = JwtUtil.getUserId(request);
+
+        User userOne = userMapper.getUserOne(userId);
+        System.out.println(userOne);
+
+        return new Result<>().success(userOne);
     }
 
 }

@@ -2,7 +2,7 @@ package com.cj.common;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.cj.entity.User;
-import com.cj.service.UserService;
+import com.cj.service.impl.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;

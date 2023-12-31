@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,12 +12,16 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
+@JsonIgnoreProperties(value = "handler")
 @TableName("user")
 @Api(value = "用户管理", tags = "用户相关接口")
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -51,5 +56,8 @@ public class User {
     // 状态，0：禁用，1：启用
     @TableField("status")
     private Integer status;
+
+    @TableField(exist = false)
+    private Role role;
 
 }

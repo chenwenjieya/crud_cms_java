@@ -1,8 +1,9 @@
-package com.cj.service;
+package com.cj.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cj.entity.Role;
 import com.cj.mapper.RoleMapper;
+import com.cj.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

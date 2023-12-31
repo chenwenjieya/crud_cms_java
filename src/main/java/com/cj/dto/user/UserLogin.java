@@ -1,4 +1,4 @@
-package com.cj.dto;
+package com.cj.dto.user;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

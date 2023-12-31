@@ -1,5 +1,6 @@
-package com.cj.dto;
+package com.cj.dto.role;
 
+import com.cj.dto.PageInfo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
