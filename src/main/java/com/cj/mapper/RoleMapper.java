@@ -9,5 +9,5 @@ import org.apache.ibatis.annotations.Select;
 public interface RoleMapper extends BaseMapper<Role> {
 
     @Select("SELECT * FROM role WHERE id = #{roleId}")
-    Role selectOneRoleByUser(Integer roleId);
+    Role selectOneRoleByUser(Long roleId);
 }
