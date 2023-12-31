@@ -33,6 +33,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private UserMapper userMapper;
 
     // 新增
     @ApiOperation(value = "新增用户", notes = "增加单个用户")
@@ -133,9 +135,6 @@ public class UserController {
     }
 
 
-    @Autowired
-    private UserMapper userMapper;
-
     /**
      * 根据用户的id获取用户的信息(包括角色信息)
      */
@@ -144,9 +143,8 @@ public class UserController {
     public Result<User> getUserInfo(HttpServletRequest request) {
         // 获取用户id
         Long userId = JwtUtil.getUserId(request);
-
+        // 查询用户信息
         User userOne = userMapper.getUserOne(userId);
-        System.out.println(userOne);
 
         return new Result<>().success(userOne);
     }
