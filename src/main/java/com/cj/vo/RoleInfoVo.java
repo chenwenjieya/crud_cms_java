@@ -9,5 +9,5 @@ public class RoleInfoVo {
     private String rolename;
 
     @ApiModelProperty("角色id")
-    private String roleId;
+    private Long roleId;
 }

@@ -27,7 +27,7 @@ public class JwtUtil {
     private static UserService userService;
 
 
-    private  static final Long TOKEN_EXPIRED_TIME = 600000L;  // 一小时过期
+    private  static final Long TOKEN_EXPIRED_TIME = 60*60*1000L;  // 一小时过期
 
     private static final String jwtId = "tokenId";
 

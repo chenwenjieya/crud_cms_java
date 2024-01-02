@@ -26,5 +26,7 @@ public interface UserMapper extends BaseMapper<User> {
     )
     User getUserOne(@Param("id") Long id);
 
+    @Select("select * from user where role_id = #{roleId}")
+    User selectUserByRole(Long roleId);
 
 }

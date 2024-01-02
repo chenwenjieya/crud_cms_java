@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,6 +24,7 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     @NotBlank(message = "账号不能为空")
