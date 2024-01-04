@@ -5,6 +5,14 @@ text: 这里是生产环境
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: xxx
-    password: xxx
-    url: jdbc:mysql://xxx:3306/school?useUnicode=true&characterEncoding=utf8&zeroDateTime
+    username: root
+    password: chenjie+00
+    url: jdbc:mysql://mysqlschool1:3306/school?useUnicode=true&characterEncoding=utf8&zeroDateTime
+
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  # mybatis-pluse本身日志打印
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  typeEnumsPackage: com.baomidou.springboot.entity.enums

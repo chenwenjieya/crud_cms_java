@@ -3,6 +3,7 @@ package com.cj.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cj.common.JwtUtil;
+import com.cj.common.PageResult;
 import com.cj.common.Result;
 import com.cj.dto.user.UserDto;
 import com.cj.dto.user.UserLogin;
@@ -16,13 +17,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Api(value = "用户管理", tags= "用户管理")
 @RestController
@@ -31,8 +30,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+//    @Autowired
+//    private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private UserMapper userMapper;
 
@@ -69,7 +68,7 @@ public class UserController {
     // 查询
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @PostMapping("/selectPage")
-    public Result<List<User>> findPage(@RequestBody UserQuery userQuery) {
+    public PageResult<List<User>> findPage(@RequestBody UserQuery userQuery) {
 
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
         wrapper.orderByDesc(User::getCreateTime);
@@ -93,7 +92,7 @@ public class UserController {
                 wrapper
         );
 
-        return new Result<>().success(page.getRecords());
+        return new PageResult<>().success(page.getRecords(),page.getTotal(), page.getSize(), page.getCurrent());
     }
 
 
@@ -126,7 +125,7 @@ public class UserController {
             userLoginVo.setRoleId(user.getRoleId());
 
             // 存储到redis中，缓存时间一个小时
-            stringRedisTemplate.opsForValue().set("token:" + user.getId(), token, 1, TimeUnit.HOURS);
+//            stringRedisTemplate.opsForValue().set("token:" + user.getId(), token, 1, TimeUnit.HOURS);
         } else{
             throw new CustomException("用户名或密码错误");
         }

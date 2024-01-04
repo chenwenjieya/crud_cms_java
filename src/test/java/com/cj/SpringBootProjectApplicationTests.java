@@ -8,9 +8,6 @@ import io.jsonwebtoken.Claims;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.StringRedisTemplate;
-
-import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 class SpringBootProjectApplicationTests {
@@ -45,29 +42,29 @@ class SpringBootProjectApplicationTests {
         System.out.println(claims.get("id"));
     }
 
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+//    @Autowired
+//    private StringRedisTemplate stringRedisTemplate;
 
-    @Test
-    public void testRedis() {
-        // 设置key value
-        stringRedisTemplate.opsForValue().set("test", "ceshi");
-        stringRedisTemplate.opsForValue().set("test1", "ceshi1");
-
-        // 设置key value 并设置过期时间
-        stringRedisTemplate.opsForValue().set("test2", "ceshi2", 10, TimeUnit.SECONDS);
-
-        // 获取key的过期时间
-        Long test2 = stringRedisTemplate.getExpire("test2");
-        System.out.println("getExpire"+test2);
-
-        // 获取key的值
-        String s = stringRedisTemplate.opsForValue().get("test");
-        System.out.println("getKey"+s);
-
-        // 检查key是否存在
-        Boolean test04 = stringRedisTemplate.hasKey("test04");
-        System.out.println("hasKey"+test04);
-    }
+//    @Test
+//    public void testRedis() {
+//        // 设置key value
+//        stringRedisTemplate.opsForValue().set("test", "ceshi");
+//        stringRedisTemplate.opsForValue().set("test1", "ceshi1");
+//
+//        // 设置key value 并设置过期时间
+//        stringRedisTemplate.opsForValue().set("test2", "ceshi2", 10, TimeUnit.SECONDS);
+//
+//        // 获取key的过期时间
+//        Long test2 = stringRedisTemplate.getExpire("test2");
+//        System.out.println("getExpire"+test2);
+//
+//        // 获取key的值
+//        String s = stringRedisTemplate.opsForValue().get("test");
+//        System.out.println("getKey"+s);
+//
+//        // 检查key是否存在
+//        Boolean test04 = stringRedisTemplate.hasKey("test04");
+//        System.out.println("hasKey"+test04);
+//    }
 
 }
